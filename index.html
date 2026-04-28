@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8D Problem Solving Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="eyebrow">GitHub Pages App</p>
+        <h1>8D Report</h1>
+        <p class="lead">A live, fillable version of the Word template with browser save, JSON export, and print-ready layout.</p>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" data-action="save">Save to Browser</button>
+        <button type="button" data-action="export">Export JSON</button>
+        <label class="import-button">
+          <span>Import JSON</span>
+          <input type="file" id="importFile" accept=".json">
+        </label>
+        <button type="button" data-action="print">Print / PDF</button>
+        <button type="button" data-action="clear" class="ghost">Clear Form</button>
+      </div>
+
+      <nav class="section-nav">
+        <a href="#header">Header</a>
+        <a href="#d0">D0 Planning</a>
+        <a href="#d1">D1 Team</a>
+        <a href="#d2">D2 Problem</a>
+        <a href="#d3">D3 Containment</a>
+        <a href="#d4">D4 Root Cause</a>
+        <a href="#d5">D5 Corrective Actions</a>
+        <a href="#d6">D6 Validate</a>
+        <a href="#d7">D7 Prevent Recurrence</a>
+        <a href="#d8">D8 Closure</a>
+        <a href="#tracker">Action Tracker</a>
+      </nav>
+
+      <div class="status-panel">
+        <p class="status-label">Status</p>
+        <p id="saveStatus">Not saved yet</p>
+      </div>
+    </aside>
+
+    <main class="content">
+      <form id="reportForm">
+        <section class="hero-card">
+          <div>
+            <p class="eyebrow">Problem Solving</p>
+            <h2>8D Problem Solving Report</h2>
+            <p>Capture the full investigation, containment, corrective actions, and closure details in one shareable report.</p>
+          </div>
+          <div class="hero-meta">
+            <div>
+              <span>Report Owner</span>
+              <strong id="heroPreparedBy">Not set</strong>
+            </div>
+            <div>
+              <span>Tracking Number</span>
+              <strong id="heroTrackingNumber">Not set</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="header" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">Header Information</p>
+            <h3>Report Setup</h3>
+          </div>
+          <div class="grid two-col">
+            <label>
+              <span>Tracking Number</span>
+              <input name="trackingNumber" type="text">
+            </label>
+            <label>
+              <span>Customer / Internal Reference</span>
+              <input name="customerReference" type="text">
+            </label>
+            <label>
+              <span>Date Issued</span>
+              <input name="dateIssued" type="date">
+            </label>
+            <label>
+              <span>Response Due Date</span>
+              <input name="responseDueDate" type="date">
+            </label>
+            <label class="full-width">
+              <span>Prepared By</span>
+              <input name="preparedBy" type="text">
+            </label>
+          </div>
+        </section>
+
+        <section id="d0" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D0</p>
+            <h3>Planning</h3>
+          </div>
+          <div class="grid two-col">
+            <fieldset>
+              <legend>Is this problem appropriate for 8D?</legend>
+              <label class="inline-option"><input type="radio" name="appropriateFor8d" value="Yes"> Yes</label>
+              <label class="inline-option"><input type="radio" name="appropriateFor8d" value="No"> No</label>
+            </fieldset>
+            <fieldset>
+              <legend>Is immediate action required?</legend>
+              <label class="inline-option"><input type="radio" name="immediateActionRequired" value="Yes"> Yes</label>
+              <label class="inline-option"><input type="radio" name="immediateActionRequired" value="No"> No</label>
+            </fieldset>
+            <label class="full-width">
+              <span>Justification</span>
+              <textarea name="d0Justification" rows="3"></textarea>
+            </label>
+            <label class="full-width">
+              <span>If yes, describe actions taken</span>
+              <textarea name="d0ActionsTaken" rows="3"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d1" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D1</p>
+            <h3>Establish the Team</h3>
+          </div>
+          <div class="grid">
+            <label>
+              <span>Team Leader</span>
+              <input name="teamLeader" type="text">
+            </label>
+            <label>
+              <span>Team Objectives</span>
+              <textarea name="teamObjectives" rows="3"></textarea>
+            </label>
+          </div>
+          <div class="table-section">
+            <div class="table-header">
+              <h4>Team Members</h4>
+              <button type="button" data-add-row="teamMembers">Add Row</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Name</th>
+                    <th>Role / Skills</th>
+                    <th>Responsibility</th>
+                    <th class="actions-col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="teamMembersBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="d2" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D2</p>
+            <h3>Problem Description</h3>
+          </div>
+          <div class="subsection">
+            <h4>2A Problem Definition</h4>
+            <div class="grid two-col">
+              <label>
+                <span>Part / Product / Process</span>
+                <input name="partProductProcess" type="text">
+              </label>
+              <label>
+                <span>Customer(s) affected</span>
+                <input name="customersAffected" type="text">
+              </label>
+              <label class="full-width">
+                <span>Description of issue</span>
+                <textarea name="issueDescription" rows="4"></textarea>
+              </label>
+              <label class="full-width">
+                <span>Supporting data / documents</span>
+                <textarea name="supportingData" rows="3"></textarea>
+              </label>
+              <label class="full-width">
+                <span>Additional data collection plan</span>
+                <textarea name="additionalDataPlan" rows="3"></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <div class="table-header">
+              <h4>2B IS / IS NOT Analysis</h4>
+              <button type="button" data-add-row="isIsNot">Add Row</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>IS</th>
+                    <th>IS NOT</th>
+                    <th class="actions-col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="isIsNotBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <label>
+              <span>2C Problem Statement</span>
+              <textarea name="problemStatement" rows="4"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d3" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D3</p>
+            <h3>Interim Containment Actions</h3>
+          </div>
+          <div class="grid">
+            <label>
+              <span>Actions taken</span>
+              <textarea name="containmentActions" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Scope of containment</span>
+              <textarea name="containmentScope" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Verification method</span>
+              <textarea name="containmentVerification" rows="3"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d4" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D4</p>
+            <h3>Root Cause Analysis</h3>
+          </div>
+          <div class="subsection">
+            <label>
+              <span>4A Possible Causes</span>
+              <textarea name="possibleCauses" rows="4"></textarea>
+            </label>
+          </div>
+          <div class="grid two-col">
+            <label>
+              <span>4B Verified Root Cause</span>
+              <textarea name="verifiedRootCause" rows="4"></textarea>
+            </label>
+            <label>
+              <span>Escape Point</span>
+              <textarea name="escapePoint" rows="4"></textarea>
+            </label>
+            <label class="full-width">
+              <span>4C Analysis Methods Used</span>
+              <textarea name="analysisMethods" rows="3" placeholder="5 Why / Fishbone / Other"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d5" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D5</p>
+            <h3>Permanent Corrective Actions</h3>
+          </div>
+          <div class="grid">
+            <label>
+              <span>Solutions</span>
+              <textarea name="solutions" rows="4"></textarea>
+            </label>
+            <label>
+              <span>Justification</span>
+              <textarea name="pcaJustification" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Risk assessment</span>
+              <textarea name="riskAssessment" rows="3"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d6" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D6</p>
+            <h3>Implement and Validate PCA</h3>
+          </div>
+          <div class="grid">
+            <label>
+              <span>Implementation details</span>
+              <textarea name="implementationDetails" rows="4"></textarea>
+            </label>
+            <label>
+              <span>Validation results</span>
+              <textarea name="validationResults" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Effectiveness evidence</span>
+              <textarea name="effectivenessEvidence" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Side effects</span>
+              <textarea name="sideEffects" rows="3"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section id="d7" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D7</p>
+            <h3>Prevent Recurrence</h3>
+          </div>
+          <div class="grid">
+            <label>
+              <span>Process updates</span>
+              <textarea name="processUpdates" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Documentation updates</span>
+              <textarea name="documentationUpdates" rows="3"></textarea>
+            </label>
+            <label>
+              <span>Training actions</span>
+              <textarea name="trainingActions" rows="3"></textarea>
+            </label>
+          </div>
+          <div class="table-section">
+            <div class="table-header">
+              <h4>Related Systems Review</h4>
+              <button type="button" data-add-row="relatedSystems">Add Row</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Document / System</th>
+                    <th>Owner</th>
+                    <th>Planned Date</th>
+                    <th>Actual Date</th>
+                    <th class="actions-col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="relatedSystemsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="d8" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">D8</p>
+            <h3>Team Recognition and Closure</h3>
+          </div>
+          <div class="grid two-col">
+            <label class="full-width">
+              <span>Summary of results</span>
+              <textarea name="summaryOfResults" rows="3"></textarea>
+            </label>
+            <label class="full-width">
+              <span>Lessons learned</span>
+              <textarea name="lessonsLearned" rows="3"></textarea>
+            </label>
+            <label class="full-width">
+              <span>Recognition notes</span>
+              <textarea name="recognitionNotes" rows="3"></textarea>
+            </label>
+            <fieldset class="full-width">
+              <legend>Effectiveness Verified</legend>
+              <label class="inline-option"><input type="radio" name="effectivenessVerified" value="Yes"> Yes</label>
+              <label class="inline-option"><input type="radio" name="effectivenessVerified" value="No"> No</label>
+            </fieldset>
+          </div>
+          <div class="table-section">
+            <div class="table-header">
+              <h4>Approvals</h4>
+              <button type="button" data-add-row="approvals">Add Row</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Signature</th>
+                    <th>Date</th>
+                    <th class="actions-col">Remove</th>
+                  </tr>
+                </thead>
+                <tbody id="approvalsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="tracker" class="card">
+          <div class="card-heading">
+            <p class="eyebrow">Tracker</p>
+            <h3>Action Item Tracker</h3>
+          </div>
+          <div class="table-header">
+            <h4>Open Actions</h4>
+            <button type="button" data-add-row="actionItems">Add Row</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Action #</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Owner</th>
+                  <th>Planned Date</th>
+                  <th>Actual Date</th>
+                  <th>Status</th>
+                  <th>Verification</th>
+                  <th class="actions-col">Remove</th>
+                </tr>
+              </thead>
+              <tbody id="actionItemsBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </form>
+    </main>
+  </div>
+
+  <template id="removeButtonTemplate">
+    <button type="button" class="row-remove" aria-label="Remove row">Remove</button>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
