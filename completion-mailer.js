@@ -15,7 +15,7 @@
     Object.assign(wrap.style, {padding:"16px",margin:"16px auto",maxWidth:"1200px",border:"2px solid #1f5f8b",borderRadius:"8px",background:"#f7fbff",boxSizing:"border-box"});
     const input = wrap.querySelector("input");
     Object.assign(input.style, {display:"block",width:"100%",marginTop:"8px",padding:"10px 12px",border:"1px solid #789",borderRadius:"5px",font:"inherit",boxSizing:"border-box"});
-    const target = document.querySelector("main, form, .page-shell, .app-shell") || document.body;
+    const target = document.querySelector("#reportForm") || document.querySelector("form") || document.querySelector("main") || document.querySelector(".page-shell, .app-shell") || document.body;
     target.insertBefore(wrap, target.firstChild);
   }
 
